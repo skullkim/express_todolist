@@ -1,9 +1,9 @@
 import attribute from './attribute-cli.js';
 
 window.onload = () => {
-    if(new URL(location.href).searchParams.get('error')){
-        alert('you already logged in');
-    }
+    const param = (new URL(location.href)).searchParams;
+    const param_value = param.get('error');
+    if(param_value) alert(param_value);
 }
 
 const response = document.getElementById('login');

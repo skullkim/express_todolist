@@ -48,8 +48,9 @@ app.use(passport.initialize());
 //save passport information in res.session object
 app.use(passport.session());
 
-
-app.use(express.static('public'));
+//express.static(__dirname + 'public')
+app.use('/script', express.static('public'));
+//console.log(__filename);
 app.use('/', main_page_router);
 app.use('/login', user_page_router);
 app.use('/signup/', signup_page_router);

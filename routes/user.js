@@ -17,30 +17,41 @@ router.post('/', isNotLoggedIn, (req, res, next) => {
             return next(authError);
         }
         if(!user){
-            return res.send('error');
+            //return res.send('error');
+            return res.redirect(`/?error=${info.message}`);
         }
         return req.login(user, (loginError) => {
             if(loginError){
                 console.error(loginError);
                 return next(loginError);
             }
-            return res.render('personal', {user: req.body.id});
+            //return res.render('personal', {user: req.body.id});
+            return res.redirect('/login/mypage');
         });
     })(req, res, next);
 });
 
+router.post('/logout', isLoggedIn, (req, res) => {
+    req.logout();
+    req.session.destroy();
+    res.redirect('/');
+})
+
 router.get('/', (req, res, next) => {
+    console.log('a');
     try{
-        res.redirect('/');
+        res.send('hi');
+        //res.redirect('../../');
     }
     catch(err){
         console.error(err);
         next(err);
     }
-});
+}); 
 
 router.get('/mypage', isLoggedIn, (req, res, next) => {
-    console.log(req.sessionID);
+    console.log(req.user.id);
+    res.render('personal', {user: req.user.name});
 })
 
 module.exports = router;

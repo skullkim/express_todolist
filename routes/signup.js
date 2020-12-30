@@ -21,7 +21,7 @@ router.get('/', (req, res, next) => {
 router.post('/check-signup', async (req, res, next) => {
     const {id, passwd1, passwd2} = req.body;
     try{
-        const exUser = await User.findOne({
+        const exUser = User.findOne({
             where: {id},
         });
         if(exUser){
@@ -47,7 +47,7 @@ router.post('/check-signup', async (req, res, next) => {
 
 router.get('/main-page', (req, res, next) => {
     try{
-        res.redirect('/');
+        res.redirect('../');
     }
     catch(err){
         console.error(err);
