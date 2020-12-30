@@ -21,9 +21,10 @@ router.get('/', (req, res, next) => {
 router.post('/check-signup', async (req, res, next) => {
     const {id, passwd1, passwd2} = req.body;
     try{
-        const exUser = User.findOne({
+        const exUser = await User.findOne({
             where: {id},
         });
+        //console.log(exUser);
         if(exUser){
             return res.render('check_signup', {success_signup: 'wrongId'});
         }
@@ -33,7 +34,7 @@ router.post('/check-signup', async (req, res, next) => {
         const hash = await bcrypt.hash(passwd1, 12);
 
         //await User.create() error
-        User.create({
+        await User.create({
             name: req.body.id,
             passwd: hash
         });

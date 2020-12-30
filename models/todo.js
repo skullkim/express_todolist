@@ -3,6 +3,10 @@ const Sequelize = require('sequelize');
 module.exports = class Todo extends Sequelize.Model{
     static init(sequelize){
         return super.init({
+            commenter: {
+                type: Sequelize.INTEGER,
+                allowNULL: false,
+            },
             comment: {
                 type: Sequelize.STRING(100),
                 allowNull: false,
@@ -16,7 +20,7 @@ module.exports = class Todo extends Sequelize.Model{
             sequelize,
             timestamps: false,
             modelName: 'Todo',
-            tableName: 'todos',
+            tableName: 'todo',
             paranoid: false,
             charset: 'utf8mb4',
             collate: 'utf8mb4_general_ci',

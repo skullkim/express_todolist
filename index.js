@@ -27,6 +27,7 @@ sequelize.sync({force:false})
 const main_page_router = require('./routes');
 const user_page_router = require('./routes/user');
 const signup_page_router = require('./routes/signup');
+const todo_page_router = require('./routes/todo');
 const { time } = require('console');
 
 app.use(morgan('dev'));
@@ -39,7 +40,7 @@ app.use(session({
     cookie: {
         httpOnly: true,
         secure: false,
-        maxAge: time.getMilliseconds + (1000 * 60),
+        maxAge: time.getMilliseconds + (10000 * 60),
     },
     name: 'session-cookie',
 }));
@@ -53,6 +54,7 @@ app.use('/script', express.static('public'));
 //console.log(__filename);
 app.use('/', main_page_router);
 app.use('/login', user_page_router);
+app.use('/todo', todo_page_router);
 app.use('/signup/', signup_page_router);
 
 

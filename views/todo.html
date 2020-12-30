@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{user}} todo list</title>
+</head>
+<body>
+    <form id="todo-form">
+        <input type="text" placeholder="todo" id="todo" name="todo">
+        <input type="submit" value="post" id="post">
+    </form>
+    <table id="todo-list">
+        <thead>
+            <tr>
+                <th>todo</th>
+                <th>modify</th>
+                <th>delete</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <script type="module" src="/script/todo-cli.js"></script>
+</body>
+</html>

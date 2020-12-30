@@ -11,7 +11,7 @@ router.use(express.urlencoded({extended: true}));
 
 router.post('/', isNotLoggedIn, (req, res, next) => {
     passport.authenticate('local', (authError, user, info) => {
-        console.log(authError, user, info);
+        //console.log(authError, user, info);
         if(authError){
             console.error(authError);
             return next(authError);
@@ -37,8 +37,19 @@ router.post('/logout', isLoggedIn, (req, res) => {
     res.redirect('/');
 })
 
+router.post('/todo', isLoggedIn, (req, res) => {
+    try{
+        //res.sendFile(path.join(__dirname, '../views/todo.html'));
+        res.render('todo', {user: req.user.name});
+    }
+    catch(err){
+        console.error(err);
+        next(err);
+    }
+});
+
 router.get('/', (req, res, next) => {
-    console.log('a');
+    //console.log('a');
     try{
         res.send('hi');
         //res.redirect('../../');
@@ -50,8 +61,15 @@ router.get('/', (req, res, next) => {
 }); 
 
 router.get('/mypage', isLoggedIn, (req, res, next) => {
-    console.log(req.user.id);
-    res.render('personal', {user: req.user.name});
+    //console.log(req.user.id);
+    try{
+        console.log(req.user);
+        res.render('personal', {user: req.user.name});
+    }
+    catch(err){
+        console.error(err);
+        next(err);
+    }
 })
 
 module.exports = router;
