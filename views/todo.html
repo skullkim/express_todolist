@@ -6,10 +6,13 @@
     <title>{{user}} todo list</title>
 </head>
 <body>
-    <form id="todo-form">
+    <!-- <form id="todo-form">
         <input type="text" placeholder="todo" id="todo" name="todo">
         <input type="submit" value="post" id="post">
-    </form>
+    </form> -->
+    <input type="text" placeholder="todo" id="todo" name="todo">
+    <input type="submit" value="post" id="post">
+    
     <table id="todo-list">
         <thead>
             <tr>
@@ -18,8 +21,10 @@
                 <th>delete</th>
             </tr>
         </thead>
-        <tbody></tbody>
+        <span id="t"></span>
+        <tbody id="todo-list"></tbody>
     </table>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="module" src="/script/todo-cli.js"></script>
 </body>
 </html>

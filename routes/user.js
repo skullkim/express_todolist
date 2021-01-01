@@ -63,7 +63,7 @@ router.get('/', (req, res, next) => {
 router.get('/mypage', isLoggedIn, (req, res, next) => {
     //console.log(req.user.id);
     try{
-        console.log(req.user);
+        //console.log(req.user);
         res.render('personal', {user: req.user.name});
     }
     catch(err){
