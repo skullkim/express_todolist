@@ -16,6 +16,10 @@ module.exports = class Todo extends Sequelize.Model{
                 allowNull: true,
                 defaultValue: Sequelize.NOW,
             },
+            done: {
+                type: Sequelize.BOOLEAN,
+                defaultValue: false,
+            }
         }, {
             sequelize,
             timestamps: false,

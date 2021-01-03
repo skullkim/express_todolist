@@ -3,13 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheet/todo-style.css">
     <title>{{user}} todo list</title>
 </head>
 <body>
-    <!-- <form id="todo-form">
-        <input type="text" placeholder="todo" id="todo" name="todo">
-        <input type="submit" value="post" id="post">
-    </form> -->
     <input type="text" placeholder="todo" id="todo" name="todo">
     <input type="submit" value="post" id="post">
     
@@ -19,12 +16,11 @@
                 <th>todo</th>
                 <th>modify</th>
                 <th>delete</th>
+                <th>done</th>
             </tr>
         </thead>
-        <span id="t"></span>
         <tbody id="todo-list"></tbody>
     </table>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="module" src="/script/todo-cli.js"></script>
 </body>
 </html>

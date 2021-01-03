@@ -1,48 +1,119 @@
+
+const createBtn = (type, attribute, value) => {
+    const btn = document.createElement('input');
+    btn.setAttribute('type', type);
+    if(value !== null){
+        btn.setAttribute(attribute, value);
+    }
+    return btn;
+}
+
+const createTodo = (lists, i) => {
+    const row = document.createElement('tr');
+    let td = document.createElement('td');
+    const row_data = (i !== null) ? lists.todo[i] : lists.todo;
+    //load whole lists
+    td.textContent = row_data.comment;
+    //console.log(row_data.done);
+    row.appendChild(td);
+    //add edit btn
+    const edit = createBtn('submit', 'value', 'edit');
+    edit.addEventListener('click', async () => {
+        const new_todo = prompt('input new todo');
+        console.log(new_todo);
+        const change = new XMLHttpRequest();
+        change.open('PUT', '/todo/edit');
+        const todo_id = edit.nextElementSibling.nextElementSibling.nextElementSibling.textContent;
+        console.log(todo_id);
+        const req_todo = {
+            todo_id,
+            new_todo,
+        };
+        change.setRequestHeader('Content-Type', 'application/json');
+        change.send(JSON.stringify(req_todo));
+        change.addEventListener('load', () => {
+            edit.parentElement.querySelector('td').textContent = new_todo;
+        })
+    });
+    td = document.createElement('td');
+    td.appendChild(edit);
+    row.appendChild(edit);
+    //add delete btn
+    const del = createBtn('submit', 'value', 'delete');
+    del.addEventListener('click', async () => {
+        const erase = new XMLHttpRequest();
+        erase.open('DELETE', '/todo/delete');
+        const todo_id = del.nextElementSibling.nextElementSibling.textContent;
+        const req_del = {todo_id};
+        erase.setRequestHeader('Content-Type', 'application/json');
+        erase.send(JSON.stringify(req_del));
+        erase.addEventListener('load', () => {});
+        //delete a todo row in html
+        const useless_tag = del.parentNode;
+        useless_tag.parentNode.removeChild(useless_tag);
+        console.log(useless_tag);
+    })
+    td = document.createElement('td');
+    td.append(del);
+    row.append(del);
+    //add checkbox
+    const done = createBtn('checkbox', 'checked', null);
+    done.addEventListener('click', () => {
+        //console.log('done');
+        const finish = new XMLHttpRequest();
+        let checked;
+        finish.open('PUT', '/todo/done');
+        if(done.hasAttribute('checked')){
+            checked = false;
+            done.removeAttribute('checked');
+        }
+        else{
+            checked = true;
+            done.setAttribute('checked', 'true');
+        }
+        const todo_id = edit.nextElementSibling.nextElementSibling.textContent;
+        console.log(todo_id, checked);
+        const req_done = {
+            todo_id,
+            checked,
+        };
+        finish.setRequestHeader('Content-Type', 'application/json');
+        finish.send(JSON.stringify(req_done));
+        finish.addEventListener('load', () => {});
+    });
+    if(row_data.done){
+        done.setAttribute('checked', 'true');
+    }
+    td.appendChild(done);
+    row.appendChild(td);
+    //todo id
+    td = document.createElement('td');
+    td.className = "user-id";
+    td.innerText = row_data.id;
+    //td.innerText = lists.todo[i].id;
+    row.appendChild(td);
+    return row;
+}
+
 window.onload = () => {
     const xhr = new XMLHttpRequest();
-    //xhr.responseType = "json";
     xhr.open('GET', '/todo/showlist');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send();
     xhr.addEventListener('load', () => {
-        //console.log(xhr.responseText, 1);
         const lists = JSON.parse(xhr.responseText);
         console.log(JSON.parse(xhr.responseText));
         const tbody = document.querySelector('#todo-list');
         for(let i = 0; i < lists.todo.length; i++){
-            const row = document.createElement('tr');
-            let td = document.createElement('td');
-            td.textContent = lists.todo[i].comment;
-            row.appendChild(td);
-            //add edit btn
-            const edit = document.createElement('input');
-            edit.setAttribute('value', 'edit');
-            edit.setAttribute('type', 'submit');
-            edit.addEventListener('click', () => {
-                console.log('edit');
-            });
-            td = document.createElement('td');
-            td.appendChild(edit);
-            row.appendChild(edit);
-            //add checkbox
-            const done = document.createElement('input');
-            done.setAttribute('type', 'checkbox');
-            done.addEventListener('click', () => {
-                console.log('done');
-            });
-            td.appendChild(done);
-            row.appendChild(td);
-            tbody.appendChild(row);
+            tbody.appendChild(createTodo(lists, i));
         }
     });
 }
 
-//import attribute from './attribute-cli.js'
 const todo = document.getElementById('todo-form');
 const todo_context = document.getElementById('todo');
 const submit = document.getElementById('post');
 submit.addEventListener('click', () => {
-    console.log(11111);
     let data = {'todo': todo_context.value}; 
     data = JSON.stringify(data);
     const xhr = new XMLHttpRequest();
@@ -53,76 +124,11 @@ submit.addEventListener('click', () => {
     xhr.addEventListener('load', () => {
         console.log(xhr.responseText);
         const list = JSON.parse(xhr.responseText);
-        const row = document.createElement('tr');
-        let td = document.createElement('td');
-        td.textContent = list.todo.comment;
-        row.appendChild(td);
-        tbody.appendChild(row);
-        const edit = document.createElement('input');
-        edit.setAttribute('value', 'edit');
-        edit.setAttribute('type', 'submit');
-        edit.addEventListener('click', () => {
-            console.log('edit');
-        });
-        td = document.createElement('td');
-        td.appendChild(edit);
-        row.appendChild(edit);
-        //add checkbox
-        const done = document.createElement('input');
-        done.setAttribute('type', 'checkbox');
-        done.addEventListener('click', () => {
-            console.log('done');
-        });
-        td.appendChild(done);
-        row.appendChild(td);
-        tbody.appendChild(row);
+        if(list.todo !== null){
+            tbody.appendChild(createTodo(list, null));
+        }
+        else{
+            alert('same todo exist');
+        }
     })
-    // todo.setAttribute('action', '/todo');
-    // todo.setAttribute('method', 'POST');
 });
-
-async function getTodo(id){
-    try{
-        const res = await axios.get(`/users/%{id}/comments`);
-        const comments = res.data;
-        const tbody = document.querySelector('#comment-list tbody');
-        tobody.innerHTML = '';
-        comments.map(function(todo){
-            const row = document.createElement('tr');
-            let td = codument.createElement('td');
-            td.textContent = todo.id;
-            row.appendChild(td);
-            td = document.createElement('td');
-            td.textContent = todo.User.name;
-            row.appendChild(td);
-            td = document.createElement('td');
-            td.textContent = todo.comment;
-            row.appendChild(td);
-            const edit = document.createElement('button');
-            edit.textContent = 'edit';
-            edit.addEventListener('click', async () =>{
-                const newTodo = prompt('input new todo');
-                if(!newTodo){
-                    return alter('You have to input new todo');
-                }
-                try{
-                    await axios.patch(`/comments/${comment.id}`, {comment: newTodo});
-                    getTodo(id);
-                }
-                catch(err){
-                    console.error(err);
-                }
-            });
-            td = document.createElement('td');
-            td.appendChild(edit);
-            row.appendChild(td);
-            td = document.createElement('td');
-            td.appendChild(remove);
-            row.appendChild(td);
-            tbody.appendChild(row);
-        })
-    }
-    catch(err){
-        console.error(err);
-    }
-}
