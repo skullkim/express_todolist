@@ -34,7 +34,7 @@ body{
     height: 8vh;
     width: 21vh;
 }
-/* #btns>*{
-    background-color: white;
-    height: 10vh;
-} */
+
+#me{
+    color: white;
+}
