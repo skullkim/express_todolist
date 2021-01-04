@@ -22,23 +22,21 @@ router.post('/check-signup', async (req, res, next) => {
     const {id, passwd1, passwd2} = req.body;
     try{
         const exUser = await User.findOne({
-            where: {id},
+            where: {name: id},
         });
-        //console.log(exUser);
         if(exUser){
-            return res.render('check_signup', {success_signup: 'wrongId'});
+            return res.redirect('/signup/?error=same id exist');
         }
         else if(passwd1 !== passwd2){
-            return res.render('check_signup', {success_signup: 'worngPassword'});
+            return res.redirect('/signup/?error=wrong password');
         }
         const hash = await bcrypt.hash(passwd1, 12);
 
-        //await User.create() error
         await User.create({
             name: req.body.id,
             passwd: hash
         });
-        return res.render('check_signup', {success_signup: 'success'});
+        return res.redirect('/?success=signup success');
     }
     catch(err){
         console.error(err);

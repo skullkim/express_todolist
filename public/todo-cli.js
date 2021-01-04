@@ -11,20 +11,25 @@ const createBtn = (type, attribute, value) => {
 const createTodo = (lists, i) => {
     const row = document.createElement('tr');
     let td = document.createElement('td');
-    const row_data = (i !== null) ? lists.todo[i] : lists.todo;
+    //const row_data = (i !== null) ? lists.todo[i] : lists.todo;
+    let row_data;
+    if(i !== null){
+        row_data = lists.todo[i];
+    }
+    else{
+        row_data = lists.todo;
+    }
     //load whole lists
     td.textContent = row_data.comment;
-    //console.log(row_data.done);
+    td.className="todo"
     row.appendChild(td);
     //add edit btn
     const edit = createBtn('submit', 'value', 'edit');
     edit.addEventListener('click', async () => {
         const new_todo = prompt('input new todo');
-        console.log(new_todo);
         const change = new XMLHttpRequest();
         change.open('PUT', '/todo/edit');
         const todo_id = edit.nextElementSibling.nextElementSibling.nextElementSibling.textContent;
-        console.log(todo_id);
         const req_todo = {
             todo_id,
             new_todo,
@@ -36,6 +41,7 @@ const createTodo = (lists, i) => {
         })
     });
     td = document.createElement('td');
+    edit.className = "todo-btn"
     td.appendChild(edit);
     row.appendChild(edit);
     //add delete btn
@@ -51,15 +57,14 @@ const createTodo = (lists, i) => {
         //delete a todo row in html
         const useless_tag = del.parentNode;
         useless_tag.parentNode.removeChild(useless_tag);
-        console.log(useless_tag);
     })
     td = document.createElement('td');
+    del.className = "todo-btn";
     td.append(del);
     row.append(del);
     //add checkbox
     const done = createBtn('checkbox', 'checked', null);
     done.addEventListener('click', () => {
-        //console.log('done');
         const finish = new XMLHttpRequest();
         let checked;
         finish.open('PUT', '/todo/done');
@@ -71,8 +76,7 @@ const createTodo = (lists, i) => {
             checked = true;
             done.setAttribute('checked', 'true');
         }
-        const todo_id = edit.nextElementSibling.nextElementSibling.textContent;
-        console.log(todo_id, checked);
+        const todo_id = done.parentElement.nextElementSibling.textContent;
         const req_done = {
             todo_id,
             checked,
@@ -84,13 +88,13 @@ const createTodo = (lists, i) => {
     if(row_data.done){
         done.setAttribute('checked', 'true');
     }
+    done.className = "todo-btn"
     td.appendChild(done);
     row.appendChild(td);
     //todo id
     td = document.createElement('td');
     td.className = "user-id";
     td.innerText = row_data.id;
-    //td.innerText = lists.todo[i].id;
     row.appendChild(td);
     return row;
 }
@@ -102,7 +106,6 @@ window.onload = () => {
     xhr.send();
     xhr.addEventListener('load', () => {
         const lists = JSON.parse(xhr.responseText);
-        console.log(JSON.parse(xhr.responseText));
         const tbody = document.querySelector('#todo-list');
         for(let i = 0; i < lists.todo.length; i++){
             tbody.appendChild(createTodo(lists, i));
@@ -122,13 +125,7 @@ submit.addEventListener('click', () => {
     xhr.send(data);
     const tbody = document.querySelector('#todo-list');
     xhr.addEventListener('load', () => {
-        console.log(xhr.responseText);
         const list = JSON.parse(xhr.responseText);
-        if(list.todo !== null){
-            tbody.appendChild(createTodo(list, null));
-        }
-        else{
-            alert('same todo exist');
-        }
-    })
+        tbody.appendChild(createTodo(list, null));
+    });
 });

@@ -7,20 +7,28 @@
     <title>{{user}} todo list</title>
 </head>
 <body>
-    <input type="text" placeholder="todo" id="todo" name="todo">
-    <input type="submit" value="post" id="post">
-    
-    <table id="todo-list">
-        <thead>
-            <tr>
-                <th>todo</th>
-                <th>modify</th>
-                <th>delete</th>
-                <th>done</th>
-            </tr>
-        </thead>
-        <tbody id="todo-list"></tbody>
-    </table>
+    <head id="head">
+        <a href="/login/mypage" id="my-page">my page</a>
+        <a href="/" id="main-page">main page</a>
+    </head>
+    <div id="div">
+        <div>
+            <h1 id="title">To do Lists</h1>
+            <input type="text" placeholder="todo" id="todo" name="todo">
+            <input type="submit" value="post" id="post"><br>
+        </div>
+        <table>
+            <thead>
+                <tr id="tr">
+                    <th>todo</th>
+                    <th>modify</th>
+                    <th>done</th>
+                </tr>
+            </thead>
+            <tbody id="todo-list"></tbody>
+        </table>
+    </div>
+   
     <script type="module" src="/script/todo-cli.js"></script>
 </body>
 </html>

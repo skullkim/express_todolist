@@ -1,3 +1,54 @@
 .user-id{
     visibility: hidden;
 }
+
+body{
+    background-color: black;
+}
+
+#my-page, #main-page{
+    color: white;
+    text-decoration: none;
+    padding-right: 2vh;
+}
+
+#title{
+    color: white;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+}
+
+#tr>*, .todo{
+    color: white;
+}
+
+#div{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#todo{
+    height: 5vh;
+    width: 70vh;
+}
+#post{
+    height: 5vh;
+}
+
+#tr>th{
+    padding-right: 5vh;
+}
+
+.todo-btn{
+    height: 5vh;
+    width: 15vh;
+}
+
+#todo-list>*, thead{
+    font-size: 5vh;
+    padding-right: 10vh;
+}

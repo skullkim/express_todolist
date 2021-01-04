@@ -1,0 +1,21 @@
+body{
+    background-color: black;
+}
+
+#user-name{
+    color: white;
+    font-size: 15vh;
+}
+
+#user{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.btn{
+    font-size: medium;
+    height: 5vh;
+    width: 40vh;
+}

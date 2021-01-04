@@ -1,0 +1,40 @@
+
+body{
+    background-color: black;
+}
+
+#login{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#login-text{
+    color: white;
+    font-size: 10vh;
+}
+
+#btns > *{
+    background-color: white;
+}
+
+#login-input>*{
+    border: 2px solid black;
+    font-size: 5vh;
+    height: 8vh;
+    width: 63vh;
+   
+}
+
+
+#login-btn, #signup-btn, #my-page{
+    background-color: white;
+    height: 8vh;
+    width: 21vh;
+}
+/* #btns>*{
+    background-color: white;
+    height: 10vh;
+} */

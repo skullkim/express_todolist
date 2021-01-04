@@ -55,7 +55,6 @@ app.use(passport.session());
 //express.static(__dirname + 'public')
 app.use('/script', express.static('public'));
 app.use('/stylesheet', express.static('public'));
-//console.log(__filename);
 app.use('/', main_page_router);
 app.use('/login', user_page_router);
 app.use('/todo', todo_page_router);

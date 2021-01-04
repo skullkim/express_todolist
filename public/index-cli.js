@@ -2,8 +2,10 @@ import attribute from './attribute-cli.js';
 
 window.onload = () => {
     const param = (new URL(location.href)).searchParams;
-    const param_value = param.get('error');
-    if(param_value) alert(param_value);
+    const error_param = param.get('error');
+    const success_param = param.get('success');
+    if(error_param) alert(error_param);
+    else if(success_param) alert(success_param);
 }
 
 const response = document.getElementById('login');
