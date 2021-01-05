@@ -9,12 +9,15 @@ const {sequelize} = require('./models');
 const passportConfig = require('./passport');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const helmet = require('helmet');
+const hpp = require('hpp');
 
 dotenv.config();
 const app = express();
 //set passport
 passportConfig();
 app.set('port', process.env.PORT || 8080);
+app.enable('trust proxy');
 app.set('view engine', 'html');
 nunjucks.configure('views', {
     express: app,
@@ -25,21 +28,34 @@ sequelize.sync({force:false})
     .then(() => console.log('success to connect DB'))
     .catch((err) => console.error(err));
 
+if(process.env.NODE_ENV === 'production'){
+    app.enable("trust proxy");
+    app.use(morgan('combined'));
+    app.use(helmet({contentSecurityPolicy: false}));
+    app.use(hpp());
+}
+else{
+    app.use(morgan('dev'));
+}
+
 const main_page_router = require('./routes');
 const user_page_router = require('./routes/user');
 const signup_page_router = require('./routes/signup');
 const todo_page_router = require('./routes/todo');
 const { time } = require('console');
 
-app.use(morgan('dev'));
+//process.env.NODE_ENV === 'production' ? app.use(morgan('combined')) : app.use(morgan('dev'));
+//app.use(morgan('dev'));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 //app.use(express.text({type: "multipart/form-data"}));
+app.use(cookie_parser());
 app.use(session({
     resave: false,
     saveUninitialized: false,
     secret: process.env.COOKIE_SECRETE,
+    proxy: true,
     cookie: {
         httpOnly: true,
         secure: false,

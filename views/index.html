@@ -10,6 +10,7 @@
     <form id="login">
         <h1 id="login-text">Login</h1>
         <div id="login-input">
+            <input type="hidden" name="_csrf" value="{{csrfToken}}">
             <input type="text" placeholder="ID" id="id" name="id"> <br>
             <input type="password" placeholder="password" id="passwd" name="passwd"> <br>
         </div>

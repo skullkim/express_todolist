@@ -3,6 +3,7 @@ const path = require('path');
 const passport = require('passport');
 const Todo = require('../models/todo');
 const connection = require('./mysql');
+const sanitize = require('sanitize-html');
 
 const router = express.Router();
 
@@ -10,6 +11,8 @@ router.post('/', async (req, res, next) => {
     try{
         const id = req.user.id;
         const todo = req.body.todo;
+        sanitize(id);
+        sanitize(todo);
         const list = await Todo.create({
             commenter: id,
             comment: todo,
@@ -57,6 +60,8 @@ router.delete('/delete', (req, res, next) => {
 router.put('/done', (req, res, next) => {
     //const json = JSON.parse(req.body);
     const {todo_id, checked} = req.body;
+    sanitize(todo_id);
+    sanitize(checked);
     Todo.update({done: checked}, {where: {id: todo_id}})
         .then(result => res.send())
         .catch(err => {

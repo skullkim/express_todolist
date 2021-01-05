@@ -3,11 +3,13 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 const path = require('path');
 const User = require('../models/user');
+const csrf = require('csurf');
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 
 const router = express.Router();
 
 router.use(express.urlencoded({extended: true}));
+
 
 router.post('/', isNotLoggedIn, (req, res, next) => {
     passport.authenticate('local', (authError, user, info) => {

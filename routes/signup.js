@@ -3,6 +3,7 @@ const path = require('path');
 const User = require('../models/user');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
+const sanitize = require('sanitize-html');
 const {isLoggedIn, isNotLoggedIn} = require('./middlewares');
 express.urlencoded({extended: true});
 
@@ -30,8 +31,9 @@ router.post('/check-signup', async (req, res, next) => {
         else if(passwd1 !== passwd2){
             return res.redirect('/signup/?error=wrong password');
         }
+        sanitize(passwd1);
         const hash = await bcrypt.hash(passwd1, 12);
-
+        sanitize(req.body.id);
         await User.create({
             name: req.body.id,
             passwd: hash
