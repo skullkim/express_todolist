@@ -2,15 +2,6 @@ body{
     background-color: black;
 }
 
-/* table{
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-
-table th, table td{
-    border: 1px solid black;
-} */
-
 #signup{
     height: 100vh;
     display: flex;
@@ -27,16 +18,13 @@ table th, table td{
 #input>*{
     border: 2px solid black;
     height: 8vh;
-    width: 62vh;
-    /* padding: 5vh 15vh; */
+    width: 40vw;
+    font-size: 2vw;
 }
 
 .btn{
     background-color: white;
     height: 8vh;
-    width: 20.5vh;
+    width: 13.5vw;
+    font-size: 2vw;
 }
-/* .btn{
-    font-size: medium;
-    width: 20%;
-} */

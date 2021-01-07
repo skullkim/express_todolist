@@ -15,7 +15,6 @@ body{
 #title{
     color: white;
     display: flex;
-    /* flex-direction: column; */
     justify-content: center;
 }
 
@@ -33,7 +32,7 @@ body{
 
 #todo{
     height: 5vh;
-    width: 70vh;
+    width: 40vw;
 }
 #post{
     height: 5vh;

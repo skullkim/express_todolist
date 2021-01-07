@@ -24,7 +24,7 @@ body{
     border: 2px solid black;
     font-size: 5vh;
     height: 8vh;
-    width: 63vh;
+    width: 50vw;
    
 }
 
@@ -32,7 +32,8 @@ body{
 #login-btn, #signup-btn, #my-page{
     background-color: white;
     height: 8vh;
-    width: 21vh;
+    width: 16.5vw;
+    font-size: 3vw;
 }
 
 #me{
