@@ -11,7 +11,6 @@ const createBtn = (type, attribute, value) => {
 const createTodo = (lists, i) => {
     const row = document.createElement('tr');
     let td = document.createElement('td');
-    //const row_data = (i !== null) ? lists.todo[i] : lists.todo;
     let row_data;
     if(i !== null){
         row_data = lists.todo[i];
@@ -19,6 +18,7 @@ const createTodo = (lists, i) => {
     else{
         row_data = lists.todo;
     }
+    const data_id = row_data.id;
     //load whole lists
     td.textContent = row_data.comment;
     td.className="todo"
@@ -29,7 +29,8 @@ const createTodo = (lists, i) => {
         const new_todo = prompt('input new todo');
         const change = new XMLHttpRequest();
         change.open('PUT', '/todo/edit');
-        const todo_id = edit.nextElementSibling.nextElementSibling.nextElementSibling.textContent;
+        //const todo_id = edit.nextElementSibling.nextElementSibling.nextElementSibling.textContent;
+        const todo_id = data_id;
         const req_todo = {
             todo_id,
             new_todo,
@@ -49,7 +50,8 @@ const createTodo = (lists, i) => {
     del.addEventListener('click', async () => {
         const erase = new XMLHttpRequest();
         erase.open('DELETE', '/todo/delete');
-        const todo_id = del.nextElementSibling.nextElementSibling.textContent;
+        //const todo_id = del.nextElementSibling.nextElementSibling.textContent;
+        const todo_id = data_id;
         const req_del = {todo_id};
         erase.setRequestHeader('Content-Type', 'application/json');
         erase.send(JSON.stringify(req_del));
@@ -76,7 +78,8 @@ const createTodo = (lists, i) => {
             checked = true;
             done.setAttribute('checked', 'true');
         }
-        const todo_id = done.parentElement.nextElementSibling.textContent;
+        //const todo_id = done.parentElement.nextElementSibling.textContent;
+        const todo_id = data_id;
         const req_done = {
             todo_id,
             checked,
