@@ -16,6 +16,7 @@ body{
     color: white;
     display: flex;
     justify-content: center;
+    font-size: 10vh;
 }
 
 #tr>*, .todo{
@@ -33,6 +34,7 @@ body{
 #todo{
     height: 5vh;
     width: 40vw;
+    font-size: 3vh;
 }
 #post{
     height: 5vh;
@@ -54,4 +56,9 @@ body{
 #todo-list>*, thead{
     font-size: 5vh;
     padding-right: 10vh;
+}
+
+.priority{
+    height: 5vh;
+    font-size: 3vh;
 }

@@ -9,7 +9,7 @@ I made this project to learn relationship between databse tables, AJAX, various 
 5. views: html and nunjucks files
 - - -
 ## running<br>
-I ignored .env, config.json file about sequelize, routes/mysql.js that connect mysql by using mysql2 module. So you need to make these files before run this toDoList.
+I ignored .env, which involves password of DB and session. So you have to make .env file before running this project
 - - -
 ## tutorial<br>  
 This video shows the result of the project<br>  
