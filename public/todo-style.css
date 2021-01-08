@@ -47,6 +47,10 @@ body{
     width: 15vh;
 }
 
+.priority{
+    width: 6vw;
+}
+
 #todo-list>*, thead{
     font-size: 5vh;
     padding-right: 10vh;
