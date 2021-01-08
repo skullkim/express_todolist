@@ -19,6 +19,10 @@ module.exports = class Todo extends Sequelize.Model{
             done: {
                 type: Sequelize.BOOLEAN,
                 defaultValue: false,
+            },
+            order: {
+                type: Sequelize.INTEGER,
+                defaultValue: 0,
             }
         }, {
             sequelize,
