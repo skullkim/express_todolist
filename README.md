@@ -13,4 +13,4 @@ I ignored .env, config.json file about sequelize, routes/mysql.js that connect m
 - - -
 ## tutorial<br>  
 This video shows the result of the project<br>  
-<iframe width="640" height="360" src="https://youtu.be/YsU_IM5lNVw" frameborder="0" gesture="media" allowfullscreen=""></iframe>
+[![Watch the video](https://i.ytimg.com/an_webp/YsU_IM5lNVw/mqdefault_6s.webp?du=3000&sqp=CPTJ4P8F&rs=AOn4CLCbOIYdTDGec7ZaHr1v3lYhDnATQQ)](https://youtu.be/YsU_IM5lNVw)
